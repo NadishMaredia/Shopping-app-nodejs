@@ -1,0 +1,47 @@
+extends layout
+
+block content
+    section.orders.light-section
+        .container.mx-auto.pt-12
+            h1.font-bold.text-lg.mb-4 All orders
+                br
+                a(href='/orderDetails') Order Details
+                if orders.length > 0
+                    table.table.table-bordered
+                        thead
+                            tr
+                            th(scope='col') Orders
+                            th(scope='col') Customer
+                            th(scope='col') Address
+                            th(scope='col') Curr. Status
+                            th(scope='col') Status
+                            th(scope='col') Placed At
+                        tbody
+                            each o in orders
+                                tr
+                                th
+                                    a(href="/singleOrder/"+o._id)= o._id
+                                    each i in o.items
+                                        p= i.item.name +' - ' +i.qty + ' Qty'
+                                td= o.customerId.name
+                                td= o.address
+                                td= o.status
+                                td
+                                    form(action='/admin/order/status' method='POST')
+                                        input(type='hidden' name='orderId' value= o._id )
+                                        select.block.appearance-none.w-full.bg-white.border.border-gray-400.px-4.py-2.pr-8.rounded.shadow.leading-tight(name='status' onchange='this.form.submit()' class='hover:border-gray-500 focus:outline-none focus:shadow-outline')
+                                            option(value='') Select
+                                            option(value='order-placed') Placed
+                                            option(value='confirmed') Confirmed
+                                            option(value='prepared' ) Prepared
+                                            option(value='delivered') Delivered
+                                            option(value='completed') Completed
+
+                                td= o.createdAt
+                else
+                    p No Orders
+                    
+
+
+
+

@@ -1,0 +1,31 @@
+extends layout
+
+block content
+    section.orders.light-section
+        .container.mx-auto.pt-12
+            h1.font-bold.text-lg.mb-4 All orders
+                if orders.length > 0
+                    table.table.table-bordered
+                        thead
+                            tr
+                            th(scope='col') Orders
+                            th(scope='col') Address
+                            th(scope='col') Phone
+                            th(scope='col') Status
+                            th(scope='col') Time
+                        tbody
+                            each o in orders
+                                tr
+                                    th
+                                        a(href="/customer/order/"+o._id)= o._id
+                                    td= o.address
+                                    td= o.number
+                                    td= o.status
+                                    td= o.createdAt
+                else
+                    p No Orders
+                    
+
+
+
+

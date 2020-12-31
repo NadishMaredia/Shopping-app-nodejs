@@ -1,0 +1,43 @@
+extends layout
+block variables
+  - var totalQty= totalQty
+
+
+block content
+  section.hero
+    .row
+      .col-md.left-c
+        p= totalQty
+        .container.text-c
+          h6.display-4
+            em Are you hungry?
+          h1.h1 Don&apos;t wait!
+          button.px-6.py-2.rounded-full.text-white.font-bold.mt-4.btn-order Order Now
+      .col-md
+        img#hero-pizza(src='/images/burger3.jpg' alt='pizza')                  
+
+  section.container
+    h1.font-bold.mt-4.m-heading All Items
+    form.mt-4(action="?"+sortBy method='get')
+      select.sortDrop.block.appearance-none.bg-white.border.border-gray-400.px-4.py-2.pr-8.rounded.shadow.leading-tight(name='sortBy' onchange='this.form.submit()' class='hover:border-gray-500 focus:outline-none focus:shadow-outline')
+        option(value='') Select
+        option(value='name') Name
+        option(value='price') Price
+    
+    br
+    .row
+      each product in products
+        .col-md-3
+          .card.mt-3(style='width: 18rem;')
+            .card-body
+              img.card-img-top.prod-img(src='/images/'+product.imagePath alt='products')
+              h3.card-title.font-bold.mt-2= product.name
+              .row
+                .col-md-6.d-flex.flex-row
+                  span.price= product.price
+                .col-md-6.d-flex.flex-row-reverse
+                  a(href="/add-to-cart/"+product._id class="btn btn-success pull-right" role="button") Add
+      
+        
+  
+

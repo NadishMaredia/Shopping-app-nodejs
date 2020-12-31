@@ -1,0 +1,43 @@
+extends layout
+
+block content
+    section.container
+    h1.font-bold.mt-4.m-heading All Items
+    form.mt-4(action="/orderDetails" method='post')
+      select.sortDrop.block.appearance-none.bg-white.border.border-gray-400.px-4.py-2.pr-8.rounded.shadow.leading-tight(
+          name='month' 
+      onchange='this.form.submit()' 
+      class='hover:border-gray-500 focus:outline-none focus:shadow-outline')
+        option(value='') Select
+        option(value='1') Jan
+        option(value='2') Feb
+        option(value='3') Mar
+        option(value='4') Apr
+        option(value='5') May
+        option(value='6') Jun
+        option(value='7') Jul
+        option(value='8') Aug
+        option(value='9') Sep
+        option(value='10') Oct
+        option(value='11') Nov
+        option(value='12') Dev
+
+    .container.mx-auto.pt-12
+            h1.font-bold.text-lg.mb-4 All orders
+                if orders.length > 0
+                    table.table.table-bordered
+                        thead
+                            tr
+                            th(scope='col') Orders
+                            th(scope='col') Phone
+                            th(scope='col') Time
+                        tbody
+                            each o in orders
+                                tr
+                                    th= o._id
+                                        each item in o.items
+                                            p= item.item.name +' - ' +item.qty +' - ' +item.price
+                                    td= o.number
+                                    td= o.createdAt
+                else
+                    p No Orders for this month.

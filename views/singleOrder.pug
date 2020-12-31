@@ -1,0 +1,42 @@
+extends layout
+
+block content
+    section.status
+        .container.mx-auto
+            .status-box.w-full.mx-auto(class='lg:w-2/3')
+                .flex.items-center.justify-between.mb-12
+                    h1.text-xl.font-bold Track delivery status
+                    h6.bg-white.py-1.rounded-full.px-4.text-green-600.text-xs= order._id
+                    input#hiddenInput(type='hidden' value= JSON.stringify(order))
+                ul
+                    if order.status == 'order-placed'
+                        li.status_line.text-sm.pb-16.current(class='md:text-xl' data-status='order_placed')
+                            span Order Placed
+                    else
+                        li.status_line.text-sm.pb-16.step-completed(class='md:text-xl' data-status='order_placed')
+                            span Order Placed
+                    if order.status == 'confirmed'
+                        li.status_line.text-sm.pb-16.current(class='md:text-xl' data-status='order_placed')
+                            span Order confirmation
+                        break
+                    else
+                        li.status_line.text-sm.pb-16.step-completed(class='md:text-xl' data-status='order_placed')
+                            span Order confirmation
+                    if order.status == 'prepared'
+                        li.status_line.text-sm.pb-16.current(class='md:text-xl' data-status='order_placed')
+                            span Preparation
+                    else
+                        li.status_line.text-sm.pb-16.step-completed(class='md:text-xl' data-status='order_placed')
+                            span Preparation
+                    if order.status == 'delivered'
+                        li.status_line.text-sm.pb-16.current(class='md:text-xl' data-status='order_placed')
+                            span Out for delivery 
+                    else
+                        li.status_line.text-sm.pb-16.step-completed(class='md:text-xl' data-status='order_placed')
+                            span Out for delivery 
+                    if order.status == 'completed'
+                        li.status_line.text-sm.pb-16.current(class='md:text-xl' data-status='order_placed')
+                            span Complete
+                    else
+                        li.status_line.text-sm.pb-16.step-completed(class='md:text-xl' data-status='order_placed')
+                            span Complete

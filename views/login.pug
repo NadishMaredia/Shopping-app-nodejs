@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    .container
+        .row
+            form.center_div(method="POST" action="/auth/login")
+                h1.font-bold.register-heading Login Now!
+                if error
+                    .alert.alert-danger
+                        p= error
+                .form-group
+                    label(for='exampleInputEmail1') Email address
+                    input#exampleInputEmail1.form-control(type='email' aria-describedby='emailHelp' name="email")
+                    small#emailHelp.form-text.text-muted We&apos;ll never share your email with anyone else.
+                .form-group
+                    label(for='exampleInputPassword1') Password
+                    input#exampleInputPassword1.form-control(type='password' name="password")
+                //- input(type="hidden" name="_csrf" value= csrfToken)
+                button.btn.btn-primary(type='submit') Login

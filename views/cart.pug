@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  section.cart.py-16
+    if session.cart
+        .order.container.mx-auto(class='w-1/2')
+            .flex.items-center.border-b.border-gray-300.pb-4
+                img(src='/images/cart-black.png' alt='cart')
+                h1.font-bold.ml-4.text-2xl Order summary
+            .pizza-list
+                each items in Object.values(session.cart.items)
+                    .flex.items-center.my-8
+                        img.w-24(src='/images/burger1.jpg' alt='pizza')
+                        .flex-1.ml-4
+                            h1= items.item.name
+                        span.flex-1= items.qty
+                        span.font-bold.text-lg= items.price
+            hr
+            .text-right.py-4
+                div
+                span.font-bold.text-lg Total Amount:
+                span.amount.text-2xl.font-bold.ml-2= session.cart.totalPrice
+                div
+                    if error
+                        .alert.alert-danger
+                            p= error
+                    form.mt-12(action="/order" method='Post')
+                        input.border.border-gray-400.p-2.mb-4(type='text' class='w-1/2' placeholder='Phone number' name='number')
+                        input.border.border-gray-400.p-2(type='text' class='w-1/2' placeholder='Address' name='address')
+                        div
+                        button.btn-order.px-6.py-2.rounded-full.text-white.mt-6(type='submit') Order now
+    else
+        .empty-cart.py-16
+            .container.mx-auto.text-center
+                h1.text-3xl.font-bold.mb-2 Card Empty
+                p.text-gray-500.text-lg.mb-12 You probably haven&apos;t order a pizza yet.
+                img.mx-auto(class='w-2/5' src='/images/empty-cart.png' alt='cart')
+                a.inline-block.px-6.py-2.rounded-full.btn-order.text-white.font-bold.mt-12(href='/auth/register') Register To Add Items
+
+    

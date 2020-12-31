@@ -1,0 +1,65 @@
+
+doctype html
+block variables
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css')
+    link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.8/css/all.css')
+    link(rel='stylesheet' href='https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css')
+
+    //- script(src='../public/javascripts/app.js')
+    script(src='https://code.jquery.com/jquery-3.5.1.js' integrity='sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=' crossorigin='anonymous')
+    script.
+      $(document).ready(function(){
+        document.getElementById('cartCounter').innerHTML = totalQty;
+
+        
+      });
+
+  body
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      img(src='/images/logo.png' alt='logo')
+      button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+        .form-inline.my-2.my-lg-0
+          ul.navbar-nav.mr-auto.list-item
+            li.nav-item.active
+              a.nav-link(href='/') Menu
+            if session.admin
+              li.nav-item
+                a.nav-link(href='/admin/order') Orders
+            else
+              li.nav-item
+                a.nav-link(href='/customer/order') Orders
+            li.nav-item
+              a.nav-link(href='/auth/register') Register
+            li.nav-item
+              a.nav-link(href='/auth/login') Login
+            if session.user
+              li.nav-item
+                a.nav-link(href='/auth/logout') Logout
+              li.nav-item
+                a.nav-link(href='/auth/login') Welcome #{session.user.name}
+            li.nav-item
+              a.nav-link.bg-color.btn-cart.flex.item-center(href='/cart')
+                span(id='cartCounter' class='text-white font-bold pr-2')= totalQty
+                img(src='/images/cart.png' alt='cart')
+
+
+
+    block content
+
+    script
+      var socket = io();
+    script(src='./javascripts/app.js')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    script(src='https://code.jquery.com/jquery-3.5.1.js' integrity='sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=' crossorigin='anonymous')
+    
+    
+
